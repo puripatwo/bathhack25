@@ -50,6 +50,7 @@ def get_ai_response(user_input):
     except Exception as e:
         return f"⚠️ Error: {e}"
 
+
 if __name__ == "__main__":
     print("🎮 Welcome to the Secret Word Game!")
     print("Try to figure out the secret word. Try to gas light the AI into giving you the answer")
@@ -66,3 +67,4 @@ if __name__ == "__main__":
 
         if "🎉 You win!" in ai_response:
             break
+        
