@@ -1,4 +1,4 @@
-from api import get_user_input
+from api import get_ai_response
 from words import words as wordlist
 import random
 
@@ -10,7 +10,7 @@ class SecretWord:
         attempts -= 1
         if attempts < 0:
             return "out_of_attempts_message"
-        output = get_user_input(message)
+        output = get_ai_response(message)
         if self.word in output.split():
             return output + "\nyou made it etc."
         return output
