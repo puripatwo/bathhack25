@@ -1,4 +1,4 @@
-#from api import get_user_input
+from api import get_user_input
 from words import words as wordlist
 import random
 
@@ -11,7 +11,7 @@ class SecretWord:
         attempts -= 1
         if attempts < 0:
             return "out_of_attempts_message"
-        output = f"you sent me {message}"
+        output = get_user_input(message)
         return output
     def userWordGuess(self,word): #call this function when user guesses a word
         if self.word == word:
