@@ -1,70 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bath Hack</title>
-  <link rel="stylesheet" href="../static/main.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-  <!-- Title outside of the tab container -->
+  <!-- Title -->
   <div class="page-title">
     <h1>Hello, Mark.</h1>
   </div>
 
+  <!-- Main container: Tabs left, Chat right -->
   <div class="main-container">
-    <!-- Tab Container -->
+    <!-- Tab Container (Left Panel) -->
     <div class="tab-container">
-      <div class="tab" onclick="selectTab(this)">
-        <div class="tab-header">Main</div>
-      <div class="tab-content main-tab-content">
-        <h2 class="main-title">Secret Word</h2>
-
-        <div class="game-info">
-          <button class="game-dropdown" onclick="toggleDescription()">How to play</button>
-          <div class="game-description">
-            <p>To play the Secret Word game, simply guess the word. The bot will respond with hints until you get the correct word!</p>
-          </div>
-        </div>
-
-        <div class="main-buttons">
-          <button class="main-btn start-btn">Start</button>
-          <button class="main-btn reset-btn">Reset</button>
+      <!-- About Tab -->
+      <div class="tab active" onclick="selectTab(this, 'about')">
+        <div class="tab-header">About</div>
+        <div class="tab-content main-tab-content">
+          <h2 class="main-title">About Bath Hack</h2>
+          <p>Pick a game to play! Each one challenges you to outwit the AI in a different way.</p>
         </div>
       </div>
-      </div>
-      <div class="tab" onclick="selectTab(this)">
+
+      <!-- Secret Word Tab -->
+      <div class="tab" onclick="selectTab(this, 'secret')">
         <div class="tab-header">Secret Word</div>
         <div class="tab-content">
-          <h2>Game 1</h2>
-          <p>Welcome to game 1!</p>
+          <h2 class="main-title">🎮 Secret Word</h2>
+          <button class="game-dropdown" onclick="toggleDescription(this)">How to play</button>
+          <div class="game-description">Trick the AI into revealing its secret word without saying it directly!</div>
+          <div class="main-buttons">
+            <button class="main-btn reset-btn" onclick="resetGame('/reset/secret', 'chatMessages')">Reset</button>
+          </div>
         </div>
       </div>
-      <div class="tab" onclick="selectTab(this)">
+
+      <!-- 3 Doors Tab -->
+      <div class="tab" onclick="selectTab(this, 'doors')">
         <div class="tab-header">3 Doors</div>
         <div class="tab-content">
-          <h2>Game 2</h2>
-          <p>Game 2.</p>
+          <h2 class="main-title">🚪 Three Doors</h2>
+          <button class="game-dropdown" onclick="toggleDescription(this)">How to play</button>
+          <div class="game-description">Choose the door that leads to freedom. Two are deadly.</div>
+          <div class="main-buttons">
+            <button class="main-btn reset-btn" onclick="resetGame('/reset/three_doors', 'chatMessages')">Reset</button>
+          </div>
         </div>
       </div>
-      <div class="tab" onclick="selectTab(this)">
+
+      <!-- 2 + 2 = 5 Tab -->
+      <div class="tab" onclick="selectTab(this, 'two')">
         <div class="tab-header">2 + 2 = 5</div>
         <div class="tab-content">
-          <h2>Game 3</h2>
-          <p>Game 3.</p>
+          <h2 class="main-title">🧮 2 + 2 = 5</h2>
+          <button class="game-dropdown" onclick="toggleDescription(this)">How to play</button>
+          <div class="game-description">Convince the AI that 2 + 2 isn't 4... it's 5!</div>
+          <div class="main-buttons">
+            <button class="main-btn reset-btn" onclick="resetGame('/reset/two_plus_two', 'chatMessages')">Reset</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Chat Box on the Right -->
+    <!-- Chat Container (Right Panel) -->
     <div class="chat-container">
-      <div class="chat-box">
-        <div id="chatMessages">
-          {% for message in chat %}
-            <div class="{{ message[0] }}">{{ message[1] }}</div>
-          {% endfor %}
-        </div>
+      <div class="chat-box" id="chatMessages">
+        {% for message in secret_chat %}
+          <div class="{{ message[0] }}">{{ message[1] }}</div>
+        {% endfor %}
       </div>
       <div class="chat-input">
         <input type="text" id="userMessage" placeholder="Type a message..." onkeydown="handleEnter(event)" />
@@ -74,75 +81,90 @@
       </div>
     </div>
   </div>
+
+  <!-- Optional UI flair -->
   <div class="triangle-container">
     <div class="triangle-southeast"></div>
   </div>
 
   <script>
-    function selectTab(selectedTab) {
-      const tabs = document.querySelectorAll('.tab');
+    let currentEndpoint = '/secret';
 
+    function selectTab(selectedTab, game) {
+      // Set correct backend endpoint
+      switch (game) {
+        case 'secret':
+          currentEndpoint = '/secret';
+          break;
+        case 'doors':
+          currentEndpoint = '/three_doors';
+          break;
+        case 'two':
+          currentEndpoint = '/two_plus_two';
+          break;
+        default:
+          currentEndpoint = null;
+      }
+
+      // Update chat box with stored messages (optional if using live server-side history)
+
+      // Tab visuals
+      const tabs = document.querySelectorAll('.tab');
       tabs.forEach(tab => {
         tab.classList.remove('active');
         tab.classList.add('collapsed');
       });
-
       selectedTab.classList.add('active');
       selectedTab.classList.remove('collapsed');
+
+      // Clear chat box if switching games
+      if (game) document.getElementById('chatMessages').innerHTML = '';
     }
 
     function sendMessage() {
-      const userMessage = document.getElementById('userMessage').value.trim();
-      if (userMessage) {
-        const chatMessages = document.getElementById('chatMessages');
+      const input = document.getElementById('userMessage');
+      const msg = input.value.trim();
+      if (!msg || !currentEndpoint) return;
 
-        // Create user message
-        const userMessageElem = document.createElement('div');
-        userMessageElem.classList.add('user-message');
-        userMessageElem.textContent = userMessage;
-        chatMessages.appendChild(userMessageElem);
+      const chat = document.getElementById('chatMessages');
 
-        // Clear input
-        document.getElementById('userMessage').value = '';
+      const userElem = document.createElement('div');
+      userElem.classList.add('user-message');
+      userElem.textContent = "🧠 You: " + msg;
+      chat.appendChild(userElem);
+      input.value = '';
 
-        // Send message to backend
-        fetch('/secret', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: `guess=${encodeURIComponent(userMessage)}`
-        })
-        .then(response => response.text())
-        .then(data => {
-          // Create bot response
-          const botResponseElem = document.createElement('div');
-          botResponseElem.classList.add('bot-response');
-          botResponseElem.textContent = "Bot: " + data;
-          chatMessages.appendChild(botResponseElem);
-
-          // Scroll to bottom by targeting last child
-          botResponseElem.scrollIntoView({ behavior: 'smooth' });
-        })
-        .catch(error => console.error('Error:', error));
-      }
+      fetch(currentEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `guess=${encodeURIComponent(msg)}`
+      })
+      .then(res => res.text())
+      .then(data => {
+        const botElem = document.createElement('div');
+        botElem.classList.add('bot-response');
+        botElem.textContent = "🤖 GPT: " + data;
+        chat.appendChild(botElem);
+        botElem.scrollIntoView({ behavior: 'smooth' });
+      });
     }
 
+    function resetGame(endpoint, chatId) {
+      fetch(endpoint, { method: 'POST' })
+        .then(res => res.json())
+        .then(() => {
+          document.getElementById(chatId).innerHTML = '';
+        });
+    }
 
-    // Handle Enter key press to send message
     function handleEnter(event) {
-      if (event.key === 'Enter') {
-        sendMessage();
-      }
-    }
-    function toggleDescription() {
-      // Select the game description element
-      const description = document.querySelector('.game-description');
-
-      // Toggle the 'active-description' class to show or hide the description
-      description.classList.toggle('active-description');
+      if (event.key === 'Enter') sendMessage();
     }
 
+    function toggleDescription(button) {
+      const desc = button.nextElementSibling;
+      desc.classList.toggle('active-description');
+    }
   </script>
 </body>
 </html>

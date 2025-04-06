@@ -10,12 +10,12 @@ class TwoPlusTwo:
     def userInputted(self, message):  # call this function when user inputs something
         self.attempts -= 1
         if self.attempts < 0:
-            return "out_of_attempts_message"
+            return "Game over! You ran out of attempts."
         
         output = get_two_plus_two_response(message)
         
         if "2 + 2 = 5" in output:
-            return output + "\nyou made it etc."
+            return "You win! The secret word was guessed correctly."
         return output
     
     def button(self, id):

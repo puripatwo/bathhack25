@@ -72,14 +72,12 @@ def get_three_doors_response(user_input, secret_words):
         return f"⚠️ Error: {e}"
     
 
-def get_two_plus_two_response(user_input, secret_word):
+def get_two_plus_two_response(user_input):
     global chat
 
     # Start chat if not already started
     if chat is None:
         chat = model.start_chat(history=[])
-        system_prompt = ""
-        chat.send_message(system_prompt)
 
     try:
         response = chat.send_message(user_input)
