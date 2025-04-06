@@ -175,34 +175,39 @@ body {
     left: 0;
   }
   
-  /* Active tab only changes z-index to come to front */
   .tab.active {
     z-index: 10;
     height: 400px;
+    top: -170px; /* Lift the active tab a bit */
   }
   
-  /* Collapsed tabs - move the tab header to the bottom of its space */
+  
+  .tab {
+    transition: top 0.3s ease, z-index 0s;
+  }
+  
   .tab.collapsed {
-    height: 40px; /* Collapse to only show the header */
+    height: 400px; /* Keep full height */
   }
   
-  /* Progressive positioning for collapsed tabs */
+  /* Positioning only (simulate "sliding down") */
   .tab.collapsed:nth-child(1) {
-    top: 360px; /* Tab 1 is now closer to the active tab */
+    top: 360px;
+    z-index: 6;
   }
   .tab.collapsed:nth-child(2) {
-    top: 320px; /* Tab 2 comes closer than before */
-    z-index: 9; /* It goes a bit above Tab 1 */
+    top: 320px;
+    z-index: 5;
   }
   .tab.collapsed:nth-child(3) {
-    top: 280px; /* Tab 3 is higher than Tab 2 */
-    z-index: 8; /* Goes a bit above Tab 2 */
+    top: 280px;
+    z-index: 4;
+  }
+  .tab.collapsed:nth-child(4) {
+    top: 240px;
+    z-index: 3;
   }
   
-  .tab.collapsed:nth-child(4) {
-    top: 240px; /* Tab 4 is higher than Tab 3 */
-    z-index: 7; /* Goes a bit above Tab 3 */
-  }
   
   
   

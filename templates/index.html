@@ -68,29 +68,18 @@
 
   <script>
     function selectTab(selectedTab) {
-      // Remove active class from all tabs
       const tabs = document.querySelectorAll('.tab');
+
+      // First, remove 'active' and add 'collapsed' to all tabs
       tabs.forEach(tab => {
         tab.classList.remove('active');
-        tab.classList.remove('collapsed');
+        tab.classList.add('collapsed');
       });
 
-      // Add active class to the selected tab
+      // Then, activate the selected tab
       selectedTab.classList.add('active');
-
-      // Collapse only the tabs in front of the active tab
-      const selectedIndex = Array.from(tabs).indexOf(selectedTab);
-      tabs.forEach((tab, index) => {
-        if (index < selectedIndex) {
-          tab.classList.add('collapsed');
-        } else {
-          tab.classList.remove('collapsed');
-        }
-      });
+      selectedTab.classList.remove('collapsed');
     }
-
-    // Set the first tab as active initially
-    document.querySelector('.tab').classList.add('active');
 
     function sendMessage() {
       const userMessage = document.getElementById('userMessage').value.trim();
