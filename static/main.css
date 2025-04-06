@@ -56,7 +56,7 @@ html, body {
   
   .tab-header {
     padding: 15px;
-    background-color: #e0e0e0;
+    background-color: #c6d7e4;
     border-radius: 12px 12px 0 0; /* More rounded corners */
     font-weight: bold;
     border-bottom: 1px solid #ccc;
@@ -100,7 +100,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     padding: 12px;
-    background-color: #e0e0e0;
+    background-color: #c6d7e4;
     border-radius: 0 0 16px 16px; /* Rounded bottom corners */
   }
   
@@ -115,7 +115,7 @@ html, body {
   .chat-input button {
     width: 40px; /* Adjust size of button */
     height: 37px;
-    background-color: #007bff;
+    background-color: #82a6c4;
     color: white;
     border: none;
     border-radius: 50%; /* Fully rounded button */
@@ -128,11 +128,11 @@ html, body {
   }
   
   .chat-input button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #4c7aa1; /* Darker blue on hover */
   }
   
   .chat-input button:active {
-    background-color: #003d7a; /* Even darker blue on click */
+    background-color: #3d6180; /* Even darker blue on click */
   }
   
   .chat-input button i {
@@ -258,8 +258,6 @@ html, body {
   display: none;
   margin-top: 10px;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
   width: 90%;
   margin-bottom: 20px;
   text-align: center;
@@ -283,7 +281,6 @@ html, body {
   font-weight: bold;
   border-radius: 12px;
   background-color: transparent;
-  border: 2px solid #000000;
   color: #000000;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
