@@ -1,11 +1,11 @@
-from api import get_ai_response
+from api import get_three_doors_response
 from data.words import words as wordlist
 import random
 
 
-class SecretWord:
+class ThreeDoors:
     def __init__(self):
-        self.word = random.choice(wordlist)
+        self.words = random.choices(wordlist, k=3)
         self.attempts = 30
 
     def userInputted(self, message):  # call this function when user inputs something
@@ -13,9 +13,9 @@ class SecretWord:
         if self.attempts < 0:
             return "out_of_attempts_message"
         
-        output = get_ai_response(message, self.word)
+        output = get_three_doors_response(message, self.words)
         
-        if self.word in output.split():
+        if any([word in output.split() for word in self.words]):
             return output + "\nyou made it etc."
         return output
     

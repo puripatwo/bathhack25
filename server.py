@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, session
-from game import SecretWord
+from secret_word import SecretWord
+from three_doors import ThreeDoors
+from two_plus_two import TwoPlusTwo
 import pickle
 
 app = Flask(__name__)
