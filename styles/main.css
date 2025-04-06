@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f5f5f5;
+  }
+  
+  .tab-container {
+    position: relative;
+    width: 800px; /* Increased width for more space */
+    height: 500px;
+    margin-top: 80px;
+  }
+  
+  .tab {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: z-index 0s, background-color 0.3s, height 0.3s, top 0.3s, left 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tab-header {
+    padding: 15px;
+    background-color: #e0e0e0;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .tab-content {
+    padding: 20px;
+    flex-grow: 1;
+    overflow: auto;
+  }
+  
+  /* Reversed stacking order - first tab at bottom, subsequent tabs higher and to the right */
+  .tab:nth-child(4) {
+    z-index: 2;
+    top: -120px;
+    left: 120px; /* Increased horizontal spacing */
+  }
+  
+  .tab:nth-child(3) {
+    z-index: 3;
+    top: -80px;
+    left: 80px; /* Increased horizontal spacing */
+  }
+  
+  .tab:nth-child(2) {
+    z-index: 4;
+    top: -40px;
+    left: 40px; /* Increased horizontal spacing */
+  }
+  
+  .tab:nth-child(1) {
+    z-index: 5;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Active tab only changes z-index to come to front */
+  .tab.active {
+    z-index: 10;
+    height: 400px;
+  }
+  
+  /* Collapsed tabs - move the tab header to the bottom of its space */
+  .tab.collapsed {
+    height: 40px; /* Collapse to only show the header */
+  }
+  
+  /* Progressive positioning for collapsed tabs */
+  .tab.collapsed:nth-child(1) {
+    top: 360px; /* Tab 1 is now closer to the active tab */
+  }
+  .tab.collapsed:nth-child(2) {
+    top: 320px; /* Tab 2 comes closer than before */
+    z-index: 9; /* It goes a bit above Tab 1 */
+  }
+  .tab.collapsed:nth-child(3) {
+    top: 280px; /* Tab 3 is higher than Tab 2 */
+    z-index: 8; /* Goes a bit above Tab 2 */
+  }
+  
+  .tab.collapsed:nth-child(4) {
+    top: 240px; /* Tab 4 is higher than Tab 3 */
+    z-index: 7; /* Goes a bit above Tab 3 */
+  }
+  
+  .tab.collapsed .tab-content {
+    display: none; /* Hide the content when collapsed */
+  }
+  
+  /* Hover effect for improved usability */
+  .tab:not(.active):hover .tab-header {
+    background-color: #d0d0d0;
+  }
+  

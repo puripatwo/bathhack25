@@ -1,12 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stacked Tabs</title>
+  <link rel="stylesheet" href="../styles/main.css"> <!-- Link to main.css -->
 </head>
 <body>
-    <h1>🤫 This is the Home Page {{hello}}! </h1>
-    <p><a href="{{ url_for('secret_word') }}">Secret Word</a></p>
+  <div class="tab-container">
+    <div class="tab" onclick="selectTab(this)">
+      <div class="tab-header">Tab 1</div>
+      <div class="tab-content">
+        <h2>Tab 1 Content</h2>
+        <p>This is the content for Tab 1. Click on any tab to select it.</p>
+      </div>
+    </div>
+    
+    <div class="tab" onclick="selectTab(this)">
+      <div class="tab-header">Tab 2</div>
+      <div class="tab-content">
+        <h2>Tab 2 Content</h2>
+        <p>Welcome to Tab 2!</p>
+
+      </div>
+    </div>
+    
+    <div class="tab" onclick="selectTab(this)">
+      <div class="tab-header">Tab 3</div>
+      <div class="tab-content">
+        <h2>Tab 3 Content</h2>
+        <p>Tab 3.</p>
+
+      </div>
+    </div>
+    
+    <div class="tab" onclick="selectTab(this)">
+      <div class="tab-header">Tab 4</div>
+      <div class="tab-content">
+        <h2>Tab 4 Content</h2>
+        <p>Tab 4.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function selectTab(selectedTab) {
+      // Remove active class from all tabs
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.classList.remove('collapsed');
+      });
+
+      // Add active class to the selected tab
+      selectedTab.classList.add('active');
+
+      // Collapse only the tabs in front of the active tab
+      const selectedIndex = Array.from(tabs).indexOf(selectedTab);
+      tabs.forEach((tab, index) => {
+        if (index < selectedIndex) {
+          tab.classList.add('collapsed');
+        } else {
+          tab.classList.remove('collapsed');
+        }
+      });
+    }
+
+    // Set the first tab as active initially
+    document.querySelector('.tab').classList.add('active');
+  </script>
 </body>
 </html>
