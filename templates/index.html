@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bath Hack</title>
   <link rel="stylesheet" href="../static/main.css">
-  <!-- Add Font Awesome CDN for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
@@ -20,7 +19,7 @@
       <div class="tab" onclick="selectTab(this)">
         <div class="tab-header">Main</div>
       <div class="tab-content main-tab-content">
-        <h2 class="main-title">🎮 Welcome to Bath Hack</h2>
+        <h2 class="main-title">Secret Word</h2>
 
         <div class="game-info">
           <button class="game-dropdown" onclick="toggleDescription()">How to play</button>
@@ -61,7 +60,6 @@
     <!-- Chat Box on the Right -->
     <div class="chat-container">
       <div class="chat-box">
-        <!-- Messages will appear here -->
         <div id="chatMessages">
           {% for message in chat %}
             <div class="{{ message[0] }}">{{ message[1] }}</div>
@@ -71,23 +69,24 @@
       <div class="chat-input">
         <input type="text" id="userMessage" placeholder="Type a message..." onkeydown="handleEnter(event)" />
         <button onclick="sendMessage()">
-          <i class="fas fa-arrow-up"></i> <!-- Font Awesome up arrow icon -->
+          <i class="fas fa-arrow-up"></i>
         </button>
       </div>
     </div>
+  </div>
+  <div class="triangle-container">
+    <div class="triangle-southeast"></div>
   </div>
 
   <script>
     function selectTab(selectedTab) {
       const tabs = document.querySelectorAll('.tab');
 
-      // First, remove 'active' and add 'collapsed' to all tabs
       tabs.forEach(tab => {
         tab.classList.remove('active');
         tab.classList.add('collapsed');
       });
 
-      // Then, activate the selected tab
       selectedTab.classList.add('active');
       selectedTab.classList.remove('collapsed');
     }
