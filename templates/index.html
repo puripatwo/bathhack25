@@ -3,43 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stacked Tabs</title>
-  <link rel="stylesheet" href="../styles/main.css"> <!-- Link to main.css -->
+  <title>Bath Hack</title>
+  <link rel="stylesheet" href="../static/main.css">
+  <!-- Add Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-  <div class="tab-container">
-    <div class="tab" onclick="selectTab(this)">
-      <div class="tab-header">Tab 1</div>
-      <div class="tab-content">
-        <h2>Tab 1 Content</h2>
-        <p>This is the content for Tab 1. Click on any tab to select it.</p>
+  <!-- Title outside of the tab container -->
+  <div class="page-title">
+    <h1>Hello, Mark.</h1>
+  </div>
+
+  <div class="main-container">
+    <!-- Tab Container -->
+    <div class="tab-container">
+      <div class="tab" onclick="selectTab(this)">
+        <div class="tab-header">Main</div>
+        <div class="tab-content">
+          <h2>Welcome</h2>
+          <p>hello</p>
+        </div>
+      </div>
+      <div class="tab" onclick="selectTab(this)">
+        <div class="tab-header">Secret Word</div>
+        <div class="tab-content">
+          <h2>Game 1</h2>
+          <p>Welcome to game 1!</p>
+        </div>
+      </div>
+      <div class="tab" onclick="selectTab(this)">
+        <div class="tab-header">3 Doors</div>
+        <div class="tab-content">
+          <h2>Game 2</h2>
+          <p>Game 2.</p>
+        </div>
+      </div>
+      <div class="tab" onclick="selectTab(this)">
+        <div class="tab-header">2 + 2 = 5</div>
+        <div class="tab-content">
+          <h2>Game 3</h2>
+          <p>Game 3.</p>
+        </div>
       </div>
     </div>
-    
-    <div class="tab" onclick="selectTab(this)">
-      <div class="tab-header">Tab 2</div>
-      <div class="tab-content">
-        <h2>Tab 2 Content</h2>
-        <p>Welcome to Tab 2!</p>
 
+    <!-- Chat Box on the Right -->
+    <div class="chat-container">
+      <div class="chat-box">
+        <!-- Messages will appear here -->
+        <div id="chatMessages">
+          {% for message in chat %}
+            <div class="{{ message[0] }}">{{ message[1] }}</div>
+          {% endfor %}
+        </div>
       </div>
-    </div>
-    
-    <div class="tab" onclick="selectTab(this)">
-      <div class="tab-header">Tab 3</div>
-      <div class="tab-content">
-        <h2>Tab 3 Content</h2>
-        <p>Tab 3.</p>
-
-      </div>
-    </div>
-    
-    <div class="tab" onclick="selectTab(this)">
-      <div class="tab-header">Tab 4</div>
-      <div class="tab-content">
-        <h2>Tab 4 Content</h2>
-        <p>Tab 4.</p>
-
+      <div class="chat-input">
+        <input type="text" id="userMessage" placeholder="Type a message..." onkeydown="handleEnter(event)" />
+        <button onclick="sendMessage()">
+          <i class="fas fa-arrow-up"></i> <!-- Font Awesome up arrow icon -->
+        </button>
       </div>
     </div>
   </div>
@@ -69,6 +91,51 @@
 
     // Set the first tab as active initially
     document.querySelector('.tab').classList.add('active');
+
+    function sendMessage() {
+      const userMessage = document.getElementById('userMessage').value.trim();
+      if (userMessage) {
+        const chatMessages = document.getElementById('chatMessages');
+
+        // Create user message
+        const userMessageElem = document.createElement('div');
+        userMessageElem.classList.add('user-message');
+        userMessageElem.textContent = userMessage;
+        chatMessages.appendChild(userMessageElem);
+
+        // Clear input
+        document.getElementById('userMessage').value = '';
+
+        // Send message to backend
+        fetch('/secret', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `guess=${encodeURIComponent(userMessage)}`
+        })
+        .then(response => response.text())
+        .then(data => {
+          // Create bot response
+          const botResponseElem = document.createElement('div');
+          botResponseElem.classList.add('bot-response');
+          botResponseElem.textContent = "Bot: " + data;
+          chatMessages.appendChild(botResponseElem);
+
+          // Scroll to bottom by targeting last child
+          botResponseElem.scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch(error => console.error('Error:', error));
+      }
+    }
+
+
+    // Handle Enter key press to send message
+    function handleEnter(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    }
   </script>
 </body>
 </html>
