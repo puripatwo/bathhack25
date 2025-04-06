@@ -9,6 +9,11 @@ body {
     flex-direction: column;
     padding-top: 30px;
   }
+
+html, body {
+    overflow: hidden;
+    height: 100%;
+  }
   
   .page-title {
     position: absolute;
@@ -180,8 +185,7 @@ body {
     height: 400px;
     top: -170px; /* Lift the active tab a bit */
   }
-  
-  
+
   .tab {
     transition: top 0.3s ease, z-index 0s;
   }
@@ -208,6 +212,85 @@ body {
     z-index: 3;
   }
   
-  
-  
-  
+/* Centering the main title */
+.main-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Styles for the game info container */
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* Style the How to Play button */
+.game-dropdown {
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 2px solid #000000;
+  background-color: transparent;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 250px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.game-dropdown:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.game-description {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 90%;
+  text-align: center;
+}
+
+/* Show description when it's active */
+.game-description.active-description {
+  display: block;
+}
+
+/* Center and adjust size for Start and Reset buttons */
+.main-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.main-btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 12px;
+  background-color: transparent;
+  border: 2px solid #000000;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 150px;
+  text-align: center;
+}
+
+.main-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.main-btn:active {
+  background-color: #000000;
+  color: white;
+}

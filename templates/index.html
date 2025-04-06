@@ -19,10 +19,21 @@
     <div class="tab-container">
       <div class="tab" onclick="selectTab(this)">
         <div class="tab-header">Main</div>
-        <div class="tab-content">
-          <h2>Welcome</h2>
-          <p>hello</p>
+      <div class="tab-content main-tab-content">
+        <h2 class="main-title">🎮 Welcome to Bath Hack</h2>
+
+        <div class="game-info">
+          <button class="game-dropdown" onclick="toggleDescription()">How to play</button>
+          <div class="game-description">
+            <p>To play the Secret Word game, simply guess the word. The bot will respond with hints until you get the correct word!</p>
+          </div>
         </div>
+
+        <div class="main-buttons">
+          <button class="main-btn start-btn">Start</button>
+          <button class="main-btn reset-btn">Reset</button>
+        </div>
+      </div>
       </div>
       <div class="tab" onclick="selectTab(this)">
         <div class="tab-header">Secret Word</div>
@@ -125,6 +136,14 @@
         sendMessage();
       }
     }
+    function toggleDescription() {
+      // Select the game description element
+      const description = document.querySelector('.game-description');
+
+      // Toggle the 'active-description' class to show or hide the description
+      description.classList.toggle('active-description');
+    }
+
   </script>
 </body>
 </html>
