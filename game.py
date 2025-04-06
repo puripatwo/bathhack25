@@ -13,7 +13,7 @@ class SecretWord:
         if self.attempts < 0:
             return "out_of_attempts_message"
         
-        output = get_ai_response(message)
+        output = get_ai_response(message, self.word)
         
         if self.word in output.split():
             return output + "\nyou made it etc."
