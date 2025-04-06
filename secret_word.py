@@ -18,10 +18,5 @@ class SecretWord:
         output = get_secret_word_response(message, self.word)
         
         if self.word in output.split():
-            return "You win! The secret word was guessed correctly."
-        return output + f"you have {self.attempts} attempts left"
-    
-    def button(self, id):
-        match id:
-            case "RESET":
-                pass
+            return output + " You win! The secret word was guessed correctly."
+        return output + f" You have {self.attempts} attempts left."

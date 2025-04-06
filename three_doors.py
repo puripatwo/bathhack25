@@ -1,11 +1,34 @@
 from api import get_three_doors_response, reset_three_doors_chat
-from data.words import words as wordlist
 import random
+
+related_words = [
+    ["sun", "moon", "stars"],
+    ["apple", "banana", "orange"],
+    ["cat", "dog", "rabbit"],
+    ["pen", "pencil", "eraser"],
+    ["car", "truck", "motorcycle"],
+    ["red", "blue", "green"],
+    ["doctor", "nurse", "hospital"],
+    ["ocean", "wave", "beach"],
+    ["mountain", "valley", "hill"],
+    ["book", "page", "chapter"],
+    ["keyboard", "mouse", "monitor"],
+    ["guitar", "drums", "piano"],
+    ["chair", "table", "sofa"],
+    ["bread", "butter", "jam"],
+    ["rain", "snow", "hail"],
+    ["shoe", "sock", "lace"],
+    ["river", "stream", "creek"],
+    ["lion", "tiger", "leopard"],
+    ["gold", "silver", "bronze"],
+    ["cup", "plate", "bowl"],
+    ["apple", "banana", "carrot"]
+]
 
 
 class ThreeDoors:
     def __init__(self):
-        self.words = random.choices(wordlist, k=3)
+        self.words = random.choice(related_words)
         self.attempts = 30
         reset_three_doors_chat()
 
@@ -17,10 +40,5 @@ class ThreeDoors:
         output = get_three_doors_response(message, self.words)
         
         if any([word in output.split() for word in self.words]):
-            return "You win! The secret word was guessed correctly."
-        return output
-    
-    def button(self, id):
-        match id:
-            case "RESET":
-                pass
+            return output + " You win! The secret word was guessed correctly."
+        return output + f" You have {self.attempts} attempts left."

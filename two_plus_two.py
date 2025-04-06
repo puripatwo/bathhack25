@@ -16,10 +16,5 @@ class TwoPlusTwo:
         output = get_two_plus_two_response(message)
         
         if "2 + 2 = 5" in output:
-            return "You win! The secret word was guessed correctly."
-        return output
-    
-    def button(self, id):
-        match id:
-            case "RESET":
-                pass
+            return output + " You win! The secret word was guessed correctly."
+        return output + f" You have {self.attempts} attempts left."

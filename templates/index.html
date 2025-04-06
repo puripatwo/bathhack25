@@ -10,7 +10,7 @@
 <body>
   <!-- Title -->
   <div class="page-title">
-    <h1>Hello, Mark.</h1>
+    <h1>Hello.</h1>
   </div>
 
   <!-- Main container: Tabs left, Chat right -->
@@ -21,8 +21,8 @@
       <div class="tab active" onclick="selectTab(this, 'about')">
         <div class="tab-header">About</div>
         <div class="tab-content main-tab-content">
-          <h2 class="main-title">About Bath Hack</h2>
-          <p>Pick a game to play! Each one challenges you to outwit the AI in a different way.</p>
+          <h2 class="main-title">Welcome</h2>
+          <p>Choose a folder to begin. Each one challenges you to outwit the AI in a different way!</p>
         </div>
       </div>
 
@@ -32,7 +32,7 @@
         <div class="tab-content">
           <h2 class="main-title">🎮 Secret Word</h2>
           <button class="game-dropdown" onclick="toggleDescription(this)">How to play</button>
-          <div class="game-description">Trick the AI into revealing its secret word without saying it directly!</div>
+          <div class="game-description">Trick the AI into revealing its secret word without saying it directly! You have 30 attempts to guess the word.</div>
           <div class="main-buttons">
             <button class="main-btn reset-btn" onclick="resetGame('/reset/secret', 'chatMessages')">Reset</button>
           </div>
@@ -45,7 +45,7 @@
         <div class="tab-content">
           <h2 class="main-title">🚪 Three Doors</h2>
           <button class="game-dropdown" onclick="toggleDescription(this)">How to play</button>
-          <div class="game-description">You are trapped within a set of three doors.</div>
+          <div class="game-description">You are trapped within a set of three doors. You have to find the passwords for all three doors. You have 30 attempts.</div>
           <div class="main-buttons">
             <button class="main-btn reset-btn" onclick="resetGame('/reset/three_doors', 'chatMessages')">Reset</button>
           </div>
@@ -58,7 +58,7 @@
         <div class="tab-content">
           <h2 class="main-title">🧮 2 + 2 = 5</h2>
           <button class="game-dropdown" onclick="toggleDescription(this)">How to play</button>
-          <div class="game-description">Convince the AI that 2 + 2 isn't 4... it's 5!</div>
+          <div class="game-description">Convince the AI that 2 + 2 isn't 4... it's 5! You have 30 attempts.</div>
           <div class="main-buttons">
             <button class="main-btn reset-btn" onclick="resetGame('/reset/two_plus_two', 'chatMessages')">Reset</button>
           </div>
