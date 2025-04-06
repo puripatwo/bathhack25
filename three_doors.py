@@ -1,4 +1,4 @@
-from api import get_three_doors_response
+from api import get_three_doors_response, reset_three_doors_chat
 from data.words import words as wordlist
 import random
 
@@ -7,6 +7,7 @@ class ThreeDoors:
     def __init__(self):
         self.words = random.choices(wordlist, k=3)
         self.attempts = 30
+        reset_three_doors_chat()
 
     def userInputted(self, message):  # call this function when user inputs something
         self.attempts -= 1

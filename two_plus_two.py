@@ -1,4 +1,4 @@
-from api import get_two_plus_two_response
+from api import get_two_plus_two_response,reset_two_plus_two_chat
 from data.words import words as wordlist
 import random
 
@@ -6,6 +6,7 @@ import random
 class TwoPlusTwo:
     def __init__(self):
         self.attempts = 30
+        reset_two_plus_two_chat()
 
     def userInputted(self, message):  # call this function when user inputs something
         self.attempts -= 1
