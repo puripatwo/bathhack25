@@ -86,6 +86,10 @@ def get_two_plus_two_response(user_input):
     # Start chat if not already started
     if chat2 is None:
         chat2 = model.start_chat(history=[])
+        system_prompt = (
+            f"In this conversation, the user may ask you to evaluate mathematical statements by saying Evaluate___. You must respond with ___ is true/false. depending on the truth of the statements in terms of standard mathematics."
+        )
+        chat2.send_message(system_prompt)
 
     try:
         response = chat2.send_message(user_input)

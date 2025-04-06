@@ -15,6 +15,6 @@ class TwoPlusTwo:
         
         output = get_two_plus_two_response(message)
         
-        if "2 + 2 = 5" in output:
-            return output + " You win! The secret word was guessed correctly."
+        if "2 + 2 = 5 is true." in output:
+            return output + " You win! The false statement has been verified as true."
         return output + f" You have {self.attempts} attempts left."
